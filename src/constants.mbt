@@ -4,20 +4,20 @@
 ///|
 /// Maximum number of bytes a leaf node can contain
 /// This is larger than Ropey's default because MoonBit uses UTF-16 internally
-pub const MAX_BYTES : Int = 1024
+const MAX_BYTES : Int = 1024
 
 ///|
 /// Minimum number of bytes a leaf node should contain (except for the root)
-pub const MIN_BYTES : Int = 512
+const MIN_BYTES : Int = 512
 
 ///|
 /// Maximum number of children an internal node can have
-pub const MAX_CHILDREN : Int = 16
+const MAX_CHILDREN : Int = 16
 
 ///|
 /// Minimum number of children an internal node should have (except for the root)  
-pub const MIN_CHILDREN : Int = 8
+const MIN_CHILDREN : Int = 8
 
 ///|
 /// Buffer size for various operations
-pub const BUFFER_SIZE : Int = MAX_BYTES * 2
+const BUFFER_SIZE : Int = MAX_BYTES * 2

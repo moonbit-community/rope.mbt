@@ -2,16 +2,6 @@
 package "myfreess/rope"
 
 // Values
-const BUFFER_SIZE : Int = 2048
-
-const MAX_BYTES : Int = 1024
-
-const MAX_CHILDREN : Int = 16
-
-const MIN_BYTES : Int = 512
-
-const MIN_CHILDREN : Int = 8
-
 fn char_at(String, Int) -> Int
 
 fn char_to_line_idx(String, Int) -> Int
