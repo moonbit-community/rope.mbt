@@ -202,7 +202,7 @@ pub fn insert_text(self : Node, char_idx : UInt64, text : String) -> Node {
         let new_text = before + text + after
 
         // Check if we need to split this leaf
-        if new_text.length() > max_bytes {
+        if new_text.length() > MAX_BYTES {
           // Split into multiple leaves
           let mid = new_text.length() / 2
           let left_text = new_text.substring(start=0, end=mid)
@@ -287,7 +287,7 @@ pub fn node_append(self : Node, other : Node) -> Node {
   match (self, other) {
     (Leaf(text1), Leaf(text2)) => {
       let combined = text1 + text2
-      if combined.length() <= max_bytes {
+      if combined.length() <= MAX_BYTES {
         Leaf(combined)
       } else {
         // Need to split into internal node

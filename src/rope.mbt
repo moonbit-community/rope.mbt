@@ -19,7 +19,7 @@ pub fn Rope::new() -> Rope {
 ///|
 /// Create a Rope from a string
 pub fn Rope::from_string(text : String) -> Rope {
-  if text.length() <= max_bytes {
+  if text.length() <= MAX_BYTES {
     { root: Node::new_leaf(text) }
   } else {
     // For large strings, split them across multiple nodes
