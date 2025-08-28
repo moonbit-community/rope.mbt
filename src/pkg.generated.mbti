@@ -1,0 +1,146 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "myfreess/rope"
+
+// Values
+let buffer_size : Int
+
+fn char_at(String, Int) -> Int
+
+fn char_to_line_idx(String, Int) -> Int
+
+fn char_to_utf16_cu_idx(String, Int) -> Int
+
+fn check_char_index(Int, Int) -> Result[Unit, RopeError]
+
+fn check_char_index_for_insert(Int, Int) -> Result[Unit, RopeError]
+
+fn check_char_range(Int, Int, Int) -> Result[Unit, RopeError]
+
+fn check_line_index(Int, Int) -> Result[Unit, RopeError]
+
+fn check_utf16_index(Int, Int) -> Result[Unit, RopeError]
+
+fn count_chars(String) -> Int
+
+fn count_line_breaks(String) -> Int
+
+fn ends_with_line_break(String) -> Bool
+
+fn is_line_break(Int) -> Bool
+
+fn last_line_start_char_idx(String) -> Int
+
+fn line_length_from_char(String, Int) -> Int
+
+fn line_to_char_idx(String, Int) -> Int
+
+let max_bytes : Int
+
+let max_children : Int
+
+let min_bytes : Int
+
+let min_children : Int
+
+fn utf16_cu_to_char_idx(String, Int) -> Int
+
+// Errors
+
+// Types and methods
+pub enum Node {
+  Leaf(String)
+  Internal(NodeChildren)
+}
+fn Node::char_count(Self) -> UInt64
+fn Node::child_count(Self) -> Int
+fn Node::depth(Self) -> Int
+fn Node::get_chunk_at_char(Self, UInt64) -> (String, TextInfo)
+fn Node::get_chunk_at_line_break(Self, UInt64) -> (String, TextInfo)
+fn Node::get_chunk_at_utf16_cu(Self, UInt64) -> (String, TextInfo)
+fn Node::insert_text(Self, UInt64, String) -> Self
+fn Node::is_internal(Self) -> Bool
+fn Node::is_leaf(Self) -> Bool
+fn Node::line_break_count(Self) -> UInt64
+fn Node::new() -> Self
+fn Node::new_empty() -> Self
+fn Node::new_internal(NodeChildren) -> Self
+fn Node::new_leaf(String) -> Self
+fn Node::node_append(Self, Self) -> Self
+fn Node::node_to_string(Self) -> String
+fn Node::split(Self, UInt64) -> Self
+fn Node::text_info(Self) -> TextInfo
+fn Node::utf16_cu_count(Self) -> UInt64
+
+pub struct NodeChildren {
+  mut children : Array[(TextInfo, Node)]
+}
+fn NodeChildren::children_insert(Self, Int, TextInfo, Node) -> Unit
+fn NodeChildren::children_is_empty(Self) -> Bool
+fn NodeChildren::children_remove(Self, Int) -> (TextInfo, Node)
+fn NodeChildren::find_child_at_char(Self, UInt64) -> (Int, TextInfo)
+fn NodeChildren::find_child_at_line_break(Self, UInt64) -> (Int, TextInfo)
+fn NodeChildren::find_child_at_utf16_cu(Self, UInt64) -> (Int, TextInfo)
+fn NodeChildren::get(Self, Int) -> (TextInfo, Node)
+fn NodeChildren::get_info(Self, Int) -> TextInfo
+fn NodeChildren::get_node(Self, Int) -> Node
+fn NodeChildren::length(Self) -> Int
+fn NodeChildren::new() -> Self
+fn NodeChildren::push(Self, TextInfo, Node) -> Unit
+fn NodeChildren::set(Self, Int, TextInfo, Node) -> Unit
+fn NodeChildren::split_off(Self, Int) -> Self
+fn NodeChildren::total_info(Self) -> TextInfo
+fn NodeChildren::with_capacity(Int) -> Self
+
+pub struct Rope {
+  root : Node
+}
+fn Rope::char_to_line(Self, Int) -> Int
+fn Rope::char_to_utf16_cu(Self, Int) -> Int
+fn Rope::from_string(String) -> Self
+fn Rope::insert(Self, Int, String) -> Self
+fn Rope::len_chars(Self) -> Int
+fn Rope::len_lines(Self) -> Int
+fn Rope::len_utf16_cu(Self) -> Int
+fn Rope::line(Self, Int) -> String
+fn Rope::line_to_char(Self, Int) -> Int
+fn Rope::new() -> Self
+fn Rope::remove(Self, Int, Int) -> Self
+fn Rope::rope_append(Self, Self) -> Self
+fn Rope::rope_char_at(Self, Int) -> Int
+fn Rope::rope_is_empty(Self) -> Bool
+fn Rope::rope_to_string(Self) -> String
+fn Rope::slice(Self, Int, Int) -> Self
+fn Rope::split_at(Self, Int) -> (Self, Self)
+fn Rope::try_char_at(Self, Int) -> Result[Int, RopeError]
+fn Rope::utf16_cu_to_char(Self, Int) -> Int
+
+pub enum RopeError {
+  CharIndexOutOfBounds(Int, Int)
+  Utf16IndexOutOfBounds(Int, Int)
+  LineIndexOutOfBounds(Int, Int)
+  CharRangeInvalid(Int, Int)
+  CharRangeOutOfBounds(Int, Int, Int)
+  InvalidOperation(String)
+}
+fn RopeError::error_to_string(Self) -> String
+
+pub struct TextInfo {
+  utf16_cu : UInt64
+  chars : UInt64
+  line_breaks : UInt64
+}
+fn TextInfo::char_count_int(Self) -> Int
+fn TextInfo::from_string(String) -> Self
+fn TextInfo::is_empty(Self) -> Bool
+fn TextInfo::line_break_count_int(Self) -> Int
+fn TextInfo::new() -> Self
+fn TextInfo::op_add(Self, Self) -> Self
+fn TextInfo::op_sub(Self, Self) -> Self
+fn TextInfo::utf16_cu_count_int(Self) -> Int
+impl Eq for TextInfo
+
+// Type aliases
+pub typealias Result[T, RopeError] as RopeResult[T]
+
+// Traits
+
