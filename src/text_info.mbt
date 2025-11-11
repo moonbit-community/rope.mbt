@@ -38,13 +38,13 @@ pub fn TextInfo::op_add(self : TextInfo, other : TextInfo) -> TextInfo {
 
 ///|
 /// Implement Add trait for TextInfo
-impl Add for TextInfo with op_add(self, other) {
+impl Add for TextInfo with add(self, other) {
   self.op_add(other)
 }
 
 ///|
 /// Implement Sub trait for TextInfo
-impl Sub for TextInfo with op_sub(self, other) {
+impl Sub for TextInfo with sub(self, other) {
   self.op_sub(other)
 }
 
