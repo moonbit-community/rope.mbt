@@ -2,7 +2,7 @@
 
 ///|
 /// Result type for Rope operations
-pub typealias Result[T, RopeError] as RopeResult[T]
+pub type RopeResult[T] = Result[T, RopeError]
 
 ///|
 /// Error types that can occur during Rope operations  
@@ -28,7 +28,7 @@ pub enum RopeError {
 
 ///|
 /// Convert RopeError to String for display
-pub fn error_to_string(self : RopeError) -> String {
+pub fn RopeError::error_to_string(self : RopeError) -> String {
   match self {
     CharIndexOutOfBounds(index, len) =>
       "Character index out of bounds: char index \{index}, Rope char length \{len}"

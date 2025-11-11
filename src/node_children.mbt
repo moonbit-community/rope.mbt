@@ -19,45 +19,49 @@ pub fn NodeChildren::with_capacity(capacity : Int) -> NodeChildren {
 
 ///|
 /// Get the number of children
-pub fn length(self : NodeChildren) -> Int {
+pub fn NodeChildren::length(self : NodeChildren) -> Int {
   self.children.length()
 }
 
 ///|
 /// Check if container is empty
-pub fn children_is_empty(self : NodeChildren) -> Bool {
+pub fn NodeChildren::children_is_empty(self : NodeChildren) -> Bool {
   self.children.length() == 0
 }
 
 ///|
 /// Add a child node with its text info
-pub fn push(self : NodeChildren, info : TextInfo, node : Node) -> Unit {
+pub fn NodeChildren::push(
+  self : NodeChildren,
+  info : TextInfo,
+  node : Node,
+) -> Unit {
   self.children.push((info, node))
 }
 
 ///|
 /// Get child at index
-pub fn get(self : NodeChildren, index : Int) -> (TextInfo, Node) {
+pub fn NodeChildren::get(self : NodeChildren, index : Int) -> (TextInfo, Node) {
   self.children[index]
 }
 
 ///|
 /// Get text info at index
-pub fn get_info(self : NodeChildren, index : Int) -> TextInfo {
+pub fn NodeChildren::get_info(self : NodeChildren, index : Int) -> TextInfo {
   let (info, _) = self.children[index]
   info
 }
 
 ///|
 /// Get node at index
-pub fn get_node(self : NodeChildren, index : Int) -> Node {
+pub fn NodeChildren::get_node(self : NodeChildren, index : Int) -> Node {
   let (_, node) = self.children[index]
   node
 }
 
 ///|
 /// Set child at index
-pub fn set(
+pub fn NodeChildren::set(
   self : NodeChildren,
   index : Int,
   info : TextInfo,
@@ -68,7 +72,7 @@ pub fn set(
 
 ///|
 /// Insert child at index
-pub fn children_insert(
+pub fn NodeChildren::children_insert(
   self : NodeChildren,
   index : Int,
   info : TextInfo,
@@ -97,7 +101,10 @@ pub fn children_insert(
 
 ///|
 /// Remove and return child at index
-pub fn children_remove(self : NodeChildren, index : Int) -> (TextInfo, Node) {
+pub fn NodeChildren::children_remove(
+  self : NodeChildren,
+  index : Int,
+) -> (TextInfo, Node) {
   let result = self.children[index]
 
   // Create new array with one less element
@@ -121,7 +128,7 @@ pub fn children_remove(self : NodeChildren, index : Int) -> (TextInfo, Node) {
 
 ///|
 /// Split children at index, returning the right part
-pub fn split_off(self : NodeChildren, at : Int) -> NodeChildren {
+pub fn NodeChildren::split_off(self : NodeChildren, at : Int) -> NodeChildren {
   let right_len = self.children.length() - at
   let right_children = Array::make(
     right_len,
@@ -144,7 +151,7 @@ pub fn split_off(self : NodeChildren, at : Int) -> NodeChildren {
 
 ///|
 /// Combine all text info from children
-pub fn total_info(self : NodeChildren) -> TextInfo {
+pub fn NodeChildren::total_info(self : NodeChildren) -> TextInfo {
   let mut result = TextInfo::new()
   for i = 0; i < self.children.length(); i = i + 1 {
     let (info, _) = self.children[i]
@@ -156,7 +163,7 @@ pub fn total_info(self : NodeChildren) -> TextInfo {
 ///|
 /// Find the child that contains the given character index
 /// Returns (child_index, accumulated_info_before_child)
-pub fn find_child_at_char(
+pub fn NodeChildren::find_child_at_char(
   self : NodeChildren,
   char_idx : UInt64,
 ) -> (Int, TextInfo) {
@@ -182,7 +189,7 @@ pub fn find_child_at_char(
 
 ///|
 /// Find the child that contains the given UTF-16 code unit index
-pub fn find_child_at_utf16_cu(
+pub fn NodeChildren::find_child_at_utf16_cu(
   self : NodeChildren,
   utf16_idx : UInt64,
 ) -> (Int, TextInfo) {
@@ -208,7 +215,7 @@ pub fn find_child_at_utf16_cu(
 
 ///|
 /// Find the child that contains the given line break index
-pub fn find_child_at_line_break(
+pub fn NodeChildren::find_child_at_line_break(
   self : NodeChildren,
   line_idx : UInt64,
 ) -> (Int, TextInfo) {

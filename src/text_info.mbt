@@ -28,7 +28,7 @@ pub fn TextInfo::from_string(text : String) -> TextInfo {
 
 ///|
 /// Add two TextInfo instances
-pub fn op_add(self : TextInfo, other : TextInfo) -> TextInfo {
+pub fn TextInfo::op_add(self : TextInfo, other : TextInfo) -> TextInfo {
   {
     utf16_cu: self.utf16_cu + other.utf16_cu,
     chars: self.chars + other.chars,
@@ -50,7 +50,7 @@ impl Sub for TextInfo with op_sub(self, other) {
 
 ///|
 /// Subtract two TextInfo instances
-pub fn op_sub(self : TextInfo, other : TextInfo) -> TextInfo {
+pub fn TextInfo::op_sub(self : TextInfo, other : TextInfo) -> TextInfo {
   {
     utf16_cu: self.utf16_cu - other.utf16_cu,
     chars: self.chars - other.chars,
@@ -60,24 +60,24 @@ pub fn op_sub(self : TextInfo, other : TextInfo) -> TextInfo {
 
 ///|
 /// Convert character count to Int
-pub fn char_count_int(self : TextInfo) -> Int {
+pub fn TextInfo::char_count_int(self : TextInfo) -> Int {
   self.chars.to_int()
 }
 
 ///|
 /// Convert UTF-16 code unit count to Int  
-pub fn utf16_cu_count_int(self : TextInfo) -> Int {
+pub fn TextInfo::utf16_cu_count_int(self : TextInfo) -> Int {
   self.utf16_cu.to_int()
 }
 
 ///|
 /// Convert line break count to Int
-pub fn line_break_count_int(self : TextInfo) -> Int {
+pub fn TextInfo::line_break_count_int(self : TextInfo) -> Int {
   self.line_breaks.to_int()
 }
 
 ///|
 /// Check if this TextInfo represents empty text
-pub fn is_empty(self : TextInfo) -> Bool {
+pub fn TextInfo::is_empty(self : TextInfo) -> Bool {
   self.chars == 0UL
 }

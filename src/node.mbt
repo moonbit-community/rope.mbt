@@ -34,7 +34,7 @@ pub fn Node::new_internal(children : NodeChildren) -> Node {
 
 ///|
 /// Check if this is a leaf node
-pub fn is_leaf(self : Node) -> Bool {
+pub fn Node::is_leaf(self : Node) -> Bool {
   match self {
     Leaf(_) => true
     Internal(_) => false
@@ -43,7 +43,7 @@ pub fn is_leaf(self : Node) -> Bool {
 
 ///|
 /// Check if this is an internal node
-pub fn is_internal(self : Node) -> Bool {
+pub fn Node::is_internal(self : Node) -> Bool {
   match self {
     Leaf(_) => false
     Internal(_) => true
@@ -52,7 +52,7 @@ pub fn is_internal(self : Node) -> Bool {
 
 ///|
 /// Get the text info for this node
-pub fn text_info(self : Node) -> TextInfo {
+pub fn Node::text_info(self : Node) -> TextInfo {
   match self {
     Leaf(text) => TextInfo::from_string(text)
     Internal(children) => children.total_info()
@@ -61,25 +61,25 @@ pub fn text_info(self : Node) -> TextInfo {
 
 ///|
 /// Get the number of UTF-16 code units in this node
-pub fn utf16_cu_count(self : Node) -> UInt64 {
+pub fn Node::utf16_cu_count(self : Node) -> UInt64 {
   self.text_info().utf16_cu
 }
 
 ///|
 /// Get the number of characters in this node
-pub fn char_count(self : Node) -> UInt64 {
+pub fn Node::char_count(self : Node) -> UInt64 {
   self.text_info().chars
 }
 
 ///|
 /// Get the number of line breaks in this node
-pub fn line_break_count(self : Node) -> UInt64 {
+pub fn Node::line_break_count(self : Node) -> UInt64 {
   self.text_info().line_breaks
 }
 
 ///|
 /// Get the depth of this node in the tree
-pub fn depth(self : Node) -> Int {
+pub fn Node::depth(self : Node) -> Int {
   match self {
     Leaf(_) => 0
     Internal(children) => {
@@ -97,7 +97,7 @@ pub fn depth(self : Node) -> Int {
 
 ///|
 /// Get the number of children (0 for leaf nodes)
-pub fn child_count(self : Node) -> Int {
+pub fn Node::child_count(self : Node) -> Int {
   match self {
     Leaf(_) => 0
     Internal(children) => children.length()
@@ -107,7 +107,10 @@ pub fn child_count(self : Node) -> Int {
 ///|
 /// Get chunk at character index
 /// Returns (text_chunk, accumulated_info_before_chunk)
-pub fn get_chunk_at_char(self : Node, char_idx : UInt64) -> (String, TextInfo) {
+pub fn Node::get_chunk_at_char(
+  self : Node,
+  char_idx : UInt64,
+) -> (String, TextInfo) {
   match self {
     Leaf(text) => (text, TextInfo::new())
     Internal(children) => {
@@ -131,7 +134,7 @@ pub fn get_chunk_at_char(self : Node, char_idx : UInt64) -> (String, TextInfo) {
 
 ///|
 /// Get chunk at UTF-16 code unit index
-pub fn get_chunk_at_utf16_cu(
+pub fn Node::get_chunk_at_utf16_cu(
   self : Node,
   utf16_idx : UInt64,
 ) -> (String, TextInfo) {
@@ -158,7 +161,7 @@ pub fn get_chunk_at_utf16_cu(
 
 ///|
 /// Get chunk at line break index
-pub fn get_chunk_at_line_break(
+pub fn Node::get_chunk_at_line_break(
   self : Node,
   line_idx : UInt64,
 ) -> (String, TextInfo) {
@@ -185,7 +188,7 @@ pub fn get_chunk_at_line_break(
 
 ///|
 /// Insert text at the given character index
-pub fn insert_text(self : Node, char_idx : UInt64, text : String) -> Node {
+pub fn Node::insert_text(self : Node, char_idx : UInt64, text : String) -> Node {
   match self {
     Leaf(existing_text) =>
       if existing_text.length() == 0 {
@@ -246,7 +249,7 @@ pub fn insert_text(self : Node, char_idx : UInt64, text : String) -> Node {
 ///|
 /// Split this node at the given character index
 /// Returns the right part of the split
-pub fn split(self : Node, char_idx : UInt64) -> Node {
+pub fn Node::split(self : Node, char_idx : UInt64) -> Node {
   match self {
     Leaf(text) => {
       let utf16_idx = char_to_utf16_cu_idx(text, char_idx.to_int())
@@ -283,7 +286,7 @@ pub fn split(self : Node, char_idx : UInt64) -> Node {
 
 ///|
 /// Append another node to this one
-pub fn node_append(self : Node, other : Node) -> Node {
+pub fn Node::node_append(self : Node, other : Node) -> Node {
   match (self, other) {
     (Leaf(text1), Leaf(text2)) => {
       let combined = text1 + text2
@@ -340,7 +343,7 @@ pub fn node_append(self : Node, other : Node) -> Node {
 
 ///|
 /// Convert node to string representation
-pub fn node_to_string(self : Node) -> String {
+pub fn Node::node_to_string(self : Node) -> String {
   match self {
     Leaf(text) => text
     Internal(children) => {
