@@ -130,7 +130,7 @@ fn TextInfo::utf16_cu_count_int(Self) -> Int
 impl Eq for TextInfo
 
 // Type aliases
-pub typealias Result[T, RopeError] as RopeResult[T]
+pub type RopeResult[T] = Result[T, RopeError]
 
 // Traits
 
