@@ -110,27 +110,26 @@ pub enum RopeError {
   LineIndexOutOfBounds(Int, Int)
   CharRangeInvalid(Int, Int)
   CharRangeOutOfBounds(Int, Int, Int)
-  InvalidOperation(String)
 }
-fn RopeError::error_to_string(Self) -> String
+fn RopeError::to_string(Self) -> String
 
 pub struct TextInfo {
   utf16_cu : UInt64
   chars : UInt64
   line_breaks : UInt64
 }
+fn TextInfo::add(Self, Self) -> Self
 fn TextInfo::char_count_int(Self) -> Int
 fn TextInfo::from_string(String) -> Self
 fn TextInfo::is_empty(Self) -> Bool
 fn TextInfo::line_break_count_int(Self) -> Int
 fn TextInfo::new() -> Self
-fn TextInfo::op_add(Self, Self) -> Self
-fn TextInfo::op_sub(Self, Self) -> Self
+fn TextInfo::sub(Self, Self) -> Self
 fn TextInfo::utf16_cu_count_int(Self) -> Int
 impl Eq for TextInfo
 
 // Type aliases
-pub typealias Result[T, RopeError] as RopeResult[T]
+pub type RopeResult[T] = Result[T, RopeError]
 
 // Traits
 

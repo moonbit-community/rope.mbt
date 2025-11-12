@@ -28,7 +28,7 @@ pub fn TextInfo::from_string(text : String) -> TextInfo {
 
 ///|
 /// Add two TextInfo instances
-pub fn TextInfo::op_add(self : TextInfo, other : TextInfo) -> TextInfo {
+pub fn TextInfo::add(self : TextInfo, other : TextInfo) -> TextInfo {
   {
     utf16_cu: self.utf16_cu + other.utf16_cu,
     chars: self.chars + other.chars,
@@ -38,19 +38,19 @@ pub fn TextInfo::op_add(self : TextInfo, other : TextInfo) -> TextInfo {
 
 ///|
 /// Implement Add trait for TextInfo
-impl Add for TextInfo with op_add(self, other) {
-  self.op_add(other)
+impl Add for TextInfo with add(self, other) {
+  self.add(other)
 }
 
 ///|
 /// Implement Sub trait for TextInfo
-impl Sub for TextInfo with op_sub(self, other) {
-  self.op_sub(other)
+impl Sub for TextInfo with sub(self, other) {
+  self.sub(other)
 }
 
 ///|
 /// Subtract two TextInfo instances
-pub fn TextInfo::op_sub(self : TextInfo, other : TextInfo) -> TextInfo {
+pub fn TextInfo::sub(self : TextInfo, other : TextInfo) -> TextInfo {
   {
     utf16_cu: self.utf16_cu - other.utf16_cu,
     chars: self.chars - other.chars,
