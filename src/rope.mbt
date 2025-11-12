@@ -35,40 +35,40 @@ pub fn Rope::from_string(text : String) -> Rope {
 
 ///|
 /// Get the total number of UTF-16 code units in the rope
-pub fn len_utf16_cu(self : Rope) -> Int {
+pub fn Rope::len_utf16_cu(self : Rope) -> Int {
   self.root.utf16_cu_count().to_int()
 }
 
 ///|
 /// Get the total number of Unicode characters in the rope  
-pub fn len_chars(self : Rope) -> Int {
+pub fn Rope::len_chars(self : Rope) -> Int {
   self.root.char_count().to_int()
 }
 
 ///|
 /// Get the total number of lines in the rope
-pub fn len_lines(self : Rope) -> Int {
+pub fn Rope::len_lines(self : Rope) -> Int {
   (self.root.line_break_count() + 1UL).to_int()
 }
 
 ///|
 /// Check if the rope is empty
-pub fn rope_is_empty(self : Rope) -> Bool {
+pub fn Rope::rope_is_empty(self : Rope) -> Bool {
   self.len_chars() == 0
 }
 
 ///|
 /// Get the character at the given character index (returns character code)
-pub fn rope_char_at(self : Rope, char_idx : Int) -> Int {
+pub fn Rope::rope_char_at(self : Rope, char_idx : Int) -> Int {
   match self.try_char_at(char_idx) {
     Ok(c) => c
-    Err(err) => abort(err.error_to_string())
+    Err(err) => abort(err.to_string())
   }
 }
 
 ///|
 /// Safe version of char_at that returns a Result
-pub fn try_char_at(self : Rope, char_idx : Int) -> RopeResult[Int] {
+pub fn Rope::try_char_at(self : Rope, char_idx : Int) -> RopeResult[Int] {
   match check_char_index(char_idx, self.len_chars()) {
     Ok(_) => ()
     Err(e) => return Err(e)
@@ -80,7 +80,7 @@ pub fn try_char_at(self : Rope, char_idx : Int) -> RopeResult[Int] {
 
 ///|
 /// Convert character index to UTF-16 code unit index
-pub fn char_to_utf16_cu(self : Rope, char_idx : Int) -> Int {
+pub fn Rope::char_to_utf16_cu(self : Rope, char_idx : Int) -> Int {
   if char_idx > self.len_chars() {
     abort("Character index out of bounds")
   }
@@ -95,7 +95,7 @@ pub fn char_to_utf16_cu(self : Rope, char_idx : Int) -> Int {
 
 ///|
 /// Convert UTF-16 code unit index to character index
-pub fn utf16_cu_to_char(self : Rope, utf16_cu_idx : Int) -> Int {
+pub fn Rope::utf16_cu_to_char(self : Rope, utf16_cu_idx : Int) -> Int {
   if utf16_cu_idx > self.len_utf16_cu() {
     abort("UTF-16 code unit index out of bounds")
   }
@@ -112,7 +112,7 @@ pub fn utf16_cu_to_char(self : Rope, utf16_cu_idx : Int) -> Int {
 
 ///|
 /// Convert character index to line index
-pub fn char_to_line(self : Rope, char_idx : Int) -> Int {
+pub fn Rope::char_to_line(self : Rope, char_idx : Int) -> Int {
   if char_idx > self.len_chars() {
     abort("Character index out of bounds")
   }
@@ -124,7 +124,7 @@ pub fn char_to_line(self : Rope, char_idx : Int) -> Int {
 
 ///|
 /// Convert line index to character index
-pub fn line_to_char(self : Rope, line_idx : Int) -> Int {
+pub fn Rope::line_to_char(self : Rope, line_idx : Int) -> Int {
   if line_idx > self.len_lines() {
     abort("Line index out of bounds")
   }
@@ -141,7 +141,7 @@ pub fn line_to_char(self : Rope, line_idx : Int) -> Int {
 
 ///|
 /// Insert text at the given character index
-pub fn insert(self : Rope, char_idx : Int, text : String) -> Rope {
+pub fn Rope::insert(self : Rope, char_idx : Int, text : String) -> Rope {
   if char_idx > self.len_chars() {
     abort("Character index out of bounds")
   }
@@ -150,7 +150,7 @@ pub fn insert(self : Rope, char_idx : Int, text : String) -> Rope {
 
 ///|
 /// Get a slice of the rope from start_char to end_char (exclusive)
-pub fn slice(self : Rope, start_char : Int, end_char : Int) -> Rope {
+pub fn Rope::slice(self : Rope, start_char : Int, end_char : Int) -> Rope {
   if start_char > end_char {
     abort("Invalid range: start > end")
   }
@@ -169,13 +169,13 @@ pub fn slice(self : Rope, start_char : Int, end_char : Int) -> Rope {
 
 ///|
 /// Convert the entire rope to a string
-pub fn rope_to_string(self : Rope) -> String {
+pub fn Rope::rope_to_string(self : Rope) -> String {
   self.root.node_to_string()
 }
 
 ///|
 /// Get a line by its index
-pub fn line(self : Rope, line_idx : Int) -> String {
+pub fn Rope::line(self : Rope, line_idx : Int) -> String {
   if line_idx >= self.len_lines() {
     abort("Line index out of bounds")
   }
@@ -190,7 +190,7 @@ pub fn line(self : Rope, line_idx : Int) -> String {
 
 ///|
 /// Append another rope to this one
-pub fn rope_append(self : Rope, other : Rope) -> Rope {
+pub fn Rope::rope_append(self : Rope, other : Rope) -> Rope {
   if self.rope_is_empty() {
     other
   } else if other.rope_is_empty() {
@@ -203,7 +203,7 @@ pub fn rope_append(self : Rope, other : Rope) -> Rope {
 ///|
 /// Split the rope at the given character index
 /// Returns a tuple of (left_part, right_part)
-pub fn split_at(self : Rope, char_idx : Int) -> (Rope, Rope) {
+pub fn Rope::split_at(self : Rope, char_idx : Int) -> (Rope, Rope) {
   if char_idx > self.len_chars() {
     abort("Character index out of bounds")
   }
@@ -220,7 +220,7 @@ pub fn split_at(self : Rope, char_idx : Int) -> (Rope, Rope) {
 
 ///|
 /// Remove text in the given character range
-pub fn remove(self : Rope, start_char : Int, end_char : Int) -> Rope {
+pub fn Rope::remove(self : Rope, start_char : Int, end_char : Int) -> Rope {
   if start_char > end_char {
     abort("Invalid range: start > end")
   }

@@ -2,7 +2,7 @@
 
 ///|
 /// Result type for Rope operations
-pub typealias Result[T, RopeError] as RopeResult[T]
+pub type RopeResult[T] = Result[T, RopeError]
 
 ///|
 /// Error types that can occur during Rope operations  
@@ -22,13 +22,11 @@ pub enum RopeError {
   /// Indicates that the passed range was partially or fully out of bounds
   /// Contains the start, end, and rope length
   CharRangeOutOfBounds(Int, Int, Int)
-  /// Indicates a general invalid operation
-  InvalidOperation(String)
 }
 
 ///|
 /// Convert RopeError to String for display
-pub fn error_to_string(self : RopeError) -> String {
+pub fn RopeError::to_string(self : RopeError) -> String {
   match self {
     CharIndexOutOfBounds(index, len) =>
       "Character index out of bounds: char index \{index}, Rope char length \{len}"
@@ -40,7 +38,6 @@ pub fn error_to_string(self : RopeError) -> String {
       "Invalid char range \{start}..\{end}: start must be <= end"
     CharRangeOutOfBounds(start, end, len) =>
       "Character range out of bounds: char range \{start}..\{end}, Rope char length \{len}"
-    InvalidOperation(msg) => "Invalid operation: \{msg}"
   }
 }
 
